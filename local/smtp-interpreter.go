@@ -16,7 +16,7 @@ const (
 	ehloRegexp        = "(?i)^EHLO[ ]+(.*)"
 	mailFromRegexp    = "(?i)^MAIL[ ]+FROM:[ ](.*)(<.*@.*>)"
 	rcptToRegexp      = "(?i)^RCPT[ ]+TO:[ ](.*)(<.*@venom>)"
-	endOfDataRegexp   = "^.$"
+	endOfDataRegexp   = "^\.$"
 	startOfDataRegexp = "(?i)^DATA$"
 	quitRegexp        = "(?i)^QUIT$"
 )
