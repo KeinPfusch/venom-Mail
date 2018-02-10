@@ -13,11 +13,12 @@ import (
 func init() {
 
 	if (os.Getuid() == 0) && (os.Getgid() != 0) {
-		fmt.Println("[MAIN] ROOT SHOULD NOT TO RUN THIS PROGRAM")
+		fmt.Println("[MAIN] ROOT SHALL NOT TO RUN THIS PROGRAM!!!!")
 		os.Exit(1)
 	}
 
 	lib.LogEngineStart()
+	lib.StartConfig()
 	upnp.UPNP_Engine_Start()
 
 }

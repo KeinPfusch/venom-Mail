@@ -2,8 +2,10 @@ package upnp
 
 import (
 	"log"
+	"strconv"
 	"strings"
 	"time"
+	lib "venom-Mail/lib"
 )
 
 func init() {
@@ -17,7 +19,7 @@ func UPNP_Worker_Start() {
 	upnp_renew := time.NewTicker(5 * time.Minute)
 	mapping_DHT := new(Upnp)
 
-	ClusterPort := 35000
+	ClusterPort, _ := strconv.Atoi(lib.VConfig["toxport"])
 
 	err := mapping_DHT.SearchGateway()
 	if err != nil {
