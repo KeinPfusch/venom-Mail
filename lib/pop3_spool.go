@@ -14,8 +14,11 @@ func init() {
 		CacheSizeMax: 1024 * 1024, // 1MB
 	})
 
-	log.Printf("[LIB][SPOOL] Spool mailspace created in %s", VenomMail.BasePath)
-	mailWrite(VenomMail, "test")
+	log.Printf("[LIB][SPOOL][POP3] Spool mailspace created in %s", VenomMail.BasePath)
+	mailWrite(VenomMail, "test1")
+	mailWrite(VenomMail, "test2")
+	log.Printf("[LIB][SPOOL][POP3] Spool test successful: %t  ", len(spoolList(VenomMail)) == 2)
+	VenomMail.EraseAll()
 
 }
 

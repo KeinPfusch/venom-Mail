@@ -17,9 +17,11 @@ func init() {
 		CacheSizeMax: 1024 * 1024, // 1MB
 	})
 
-	spoolWrite(VenomQueue, "test")
-
-	log.Printf("[LIB][SPOOL] Spool queue created in %s", VenomQueue.BasePath)
+	log.Printf("[LIB][SPOOL][SMTP] Spool queue created in %s", VenomQueue.BasePath)
+	spoolWrite(VenomQueue, "test1")
+	spoolWrite(VenomQueue, "test2")
+	log.Printf("[LIB][SPOOL][SMTP] Spool test successful: %t  ", len(spoolList(VenomQueue)) == 2)
+	VenomQueue.EraseAll()
 
 }
 
@@ -43,7 +45,7 @@ func spoolWrite(vq *diskv.Diskv, mailin string) {
 
 }
 
-func spoolList(vq *diskv.Diskv, mailin string) []string {
+func spoolList(vq *diskv.Diskv) []string {
 
 	var l []string
 	for key := range vq.Keys(nil) {
