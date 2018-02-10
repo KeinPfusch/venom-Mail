@@ -11,9 +11,10 @@ import (
 var SmtpMessage string
 
 const (
-	ehloRegexp     = "(?i)^EHLO[ ]+(.*)"
-	mailFromRegexp = "(?i)^MAIL[ ]+FROM:[ ](.*)(<.*@.*>)"
-	rcptToRegexp   = "(?i)^RCPT[ ]+TO:[ ](.*)(<.*@venom>)"
+	ehloRegexp      = "(?i)^EHLO[ ]+(.*)"
+	mailFromRegexp  = "(?i)^MAIL[ ]+FROM:[ ](.*)(<.*@.*>)"
+	rcptToRegexp    = "(?i)^RCPT[ ]+TO:[ ](.*)(<.*@venom>)"
+	endOfDataRegexp = "^.\r\n$"
 )
 
 func SMTP_Interpret(conn net.Conn) {
