@@ -9,17 +9,17 @@ import (
 	"github.com/peterbourgon/diskv"
 )
 
+var VenomQueue = diskv.New(diskv.Options{
+	BasePath:     Hpwd() + "/spool/queue",
+	Transform:    blockTransform,
+	CacheSizeMax: 1024 * 1024, // 1MB
+})
+
 func init() {
 
-	VenomQueue := diskv.New(diskv.Options{
-		BasePath:     Hpwd() + "/spool/queue",
-		Transform:    blockTransform,
-		CacheSizeMax: 1024 * 1024, // 1MB
-	})
-
 	log.Printf("[LIB][SPOOL][SMTP] Spool queue created in %s", VenomQueue.BasePath)
-	spoolWrite(VenomQueue, "test1")
-	log.Printf("[LIB][SPOOL][SMTP] Spool read test successful: %t  ", spoolRead(VenomQueue, shasum("test1")) != nil)
+	SpoolWrite(VenomQueue, "test1")
+	log.Printf("[LIB][SPOOL][SMTP] Spool read test successful: %t  ", SpoolRead(VenomQueue, shasum("test1")) != nil)
 	log.Printf("[LIB][SPOOL][SMTP] Spool delete successful: %t  ", VenomQueue.Erase(shasum("test1")) == nil)
 
 }
@@ -38,13 +38,13 @@ func blockTransform(s string) []string {
 
 const transformBlockSize = 32 // grouping of chars per directory depth
 
-func spoolWrite(vq *diskv.Diskv, mailin string) {
+func SpoolWrite(vq *diskv.Diskv, mailin string) {
 
 	vq.Write(shasum(mailin), []byte(mailin))
 
 }
 
-func spoolList(vq *diskv.Diskv) []string {
+func SpoolList(vq *diskv.Diskv) []string {
 
 	var l []string
 	for key := range vq.Keys(nil) {
@@ -55,7 +55,7 @@ func spoolList(vq *diskv.Diskv) []string {
 
 }
 
-func spoolRead(vq *diskv.Diskv, key string) []byte {
+func SpoolRead(vq *diskv.Diskv, key string) []byte {
 
 	val, err := vq.Read(key)
 	if err != nil {
