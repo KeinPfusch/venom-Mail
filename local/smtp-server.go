@@ -23,7 +23,7 @@ func SMTP_Frontend() {
 		log.Printf("[NNTP] TCP listening at %s ", listenSmtp)
 
 	} else {
-		log.Printf("[WTF] TCP CANNOT listen at %s. SYSADMIIIIN!!", "127.0.0.1:11119")
+		log.Printf("[WTF] TCP CANNOT listen at %s. SYSADMIIIIN!!", listenSmtp)
 		return
 	}
 

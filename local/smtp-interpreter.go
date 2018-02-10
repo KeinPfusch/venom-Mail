@@ -10,7 +10,10 @@ import (
 
 type SmtpMessage string
 
-const ehloRegexp = "(?i)^EHLO(.*)"
+const (
+	ehloRegexp   = "(?i)^EHLO(.*)"
+	mailToRegexp = "(?i)^MAIL[ ]+FROM:(.*)"
+)
 
 func SMTP_Interpret(conn net.Conn) {
 
@@ -39,7 +42,7 @@ func SMTP_Interpret(conn net.Conn) {
 			break
 		}
 
-		if matches, _ := regexp.MatchString("(?i)^MAIL[ ]+FROM:(.*)", message); matches == true {
+		if matches, _ := regexp.MatchString(mailToRegexp, message); matches == true {
 			log.Printf("[INFO] SMTP %s from %s ", message, remote_client)
 			conn.Write([]byte("205 closing connection - goodbye!"))
 			conn.Close()
