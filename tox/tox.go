@@ -1,8 +1,7 @@
 package toxinterface
 
-func init() {
-
-	opt := tox.NewToxOptions()
-	t := tox.NewTox(opt)
-
-}
+include (
+	
+	"github.com/TokTok/go-toxcore-c"
+	
+)
