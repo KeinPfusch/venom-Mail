@@ -88,7 +88,7 @@ func (this *Upnp) SearchGateway() (err error) {
 			lock: new(sync.Mutex),
 		}
 		this.LocalHost = lib.GetLocalIp()
-		log.Println("[UPnP] GetLocalIp " + this.LocalHost)
+		log.Println("[UPnP] GetLocalIp said: " + this.LocalHost)
 	}
 	searchGateway := SearchGateway{upnp: this}
 	if searchGateway.Send() {
