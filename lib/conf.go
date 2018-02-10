@@ -14,7 +14,7 @@ var VConfig map[string]string
 func init() {
 
 	VConfig = make(map[string]string)
-
+	os.MkdirAll("etc", 0755)
 	GConfigFile := filepath.Join(Hpwd(), "etc", "venom.conf")
 
 	readConfig(GConfigFile)
