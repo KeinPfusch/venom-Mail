@@ -11,8 +11,9 @@ import (
 type SmtpMessage string
 
 const (
-	ehloRegexp   = "(?i)^EHLO(.*)"
+	ehloRegexp   = "(?i)^EHLO[ ]+(.*)"
 	mailToRegexp = "(?i)^MAIL[ ]+FROM:(.*)<(.*@.*)>"
+	rcptToRegexp = "(?i)^RCPT[ ]+TO:(.*)<(.*)@venom>.*"
 )
 
 func SMTP_Interpret(conn net.Conn) {
@@ -47,7 +48,16 @@ func SMTP_Interpret(conn net.Conn) {
 			re, _ := regexp.Compile(mailToRegexp)
 			match := re.FindStringSubmatch(message)
 			log.Printf("[INFO] SMTP from %s ,email: %s ", match[1], match[2])
-			conn.Write([]byte("250 2.0.0: Ok"))
+			conn.Write([]byte("250 2.0.0 " + match[1] + " ...Sender Ok"))
+			continue
+		}
+
+		if matches, _ := regexp.MatchString(rcptToRegexp, message); matches == true {
+			log.Printf("[INFO] SMTP %s from %s ", message, remote_client)
+			re, _ := regexp.Compile(rcptToRegexp)
+			match := re.FindStringSubmatch(message)
+			log.Printf("[INFO] SMTP RCPT TO to %s ,ToxID: %s ", match[1], match[2])
+			conn.Write([]byte("250 " + match[2] + "... Recipient ok"))
 			continue
 		}
 
