@@ -5,7 +5,7 @@ import (
 	"errors"
 	"log"
 	"sync"
-	"tribes/tools"
+	"venom-Mail/lib"
 )
 
 type MappingPortStruct struct {
@@ -87,7 +87,8 @@ func (this *Upnp) SearchGateway() (err error) {
 		this.MappingPort = MappingPortStruct{
 			lock: new(sync.Mutex),
 		}
-		this.LocalHost = tools.ReadIpFromHost()
+		this.LocalHost = lib.GetLocalIp()
+		log.Println("[UPnP] GetLocalIp " + this.LocalHost)
 	}
 	searchGateway := SearchGateway{upnp: this}
 	if searchGateway.Send() {

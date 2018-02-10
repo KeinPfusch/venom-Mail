@@ -5,7 +5,6 @@ import (
 	"os"
 
 	lib "venom-Mail/lib"
-
 	upnp "venom-Mail/upnp"
 
 	"os/signal"
@@ -19,7 +18,7 @@ func init() {
 	}
 
 	lib.LogEngineStart()
-	upnp.UPNP_Worker_Start()
+	upnp.UPNP_Engine_Start()
 
 }
 
