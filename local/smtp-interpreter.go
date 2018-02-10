@@ -58,6 +58,7 @@ func SMTP_Interpret(conn net.Conn) {
 			log.Printf("[INFO] SMTP from %s ,email: %s ", match[1], match[2])
 			conn.Write([]byte("250 2.0.0 " + match[1] + " ...Sender Ok"))
 			SmtpMessage = SmtpMessage + "From: " + match[1] + " " + match[2] + "\r\n"
+			SmtpMessage = SmtpMessage + "X-Venom-From: " + match[2] + "\r\n"
 			dataPhase = false
 			continue
 		}
@@ -69,6 +70,7 @@ func SMTP_Interpret(conn net.Conn) {
 			log.Printf("[INFO] SMTP RCPT TO to %s ,ToxID: %s ", match[1], match[2])
 			conn.Write([]byte("250 " + match[2] + "... Recipient ok"))
 			SmtpMessage = SmtpMessage + "To: " + match[1] + " " + match[2] + "\r\n"
+			SmtpMessage = SmtpMessage + "X-Venom-To: " + match[2] + "\r\n"
 			dataPhase = false
 			continue
 		}
