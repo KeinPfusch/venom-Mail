@@ -44,7 +44,7 @@ func SMTP_Interpret(conn net.Conn) {
 
 		if matches, _ := regexp.MatchString(mailToRegexp, message); matches == true {
 			log.Printf("[INFO] SMTP %s from %s ", message, remote_client)
-			re, _ := regexp.Compile(ehloRegexp)
+			re, _ := regexp.Compile(mailToRegexp)
 			match := re.FindStringSubmatch(message)
 			log.Printf("[INFO] SMTP from %s ,email: %s ", match[1], match[2])
 			conn.Write([]byte("250 2.0.0: Ok"))
@@ -61,6 +61,7 @@ func SMTP_Interpret(conn net.Conn) {
 		log.Printf("[INFO] SMTP BULLSHIT >%s< from %s ", message, remote_client)
 		time.Sleep(1 * time.Second)
 		conn.Write([]byte("500 Command not understood\r\n"))
+		break
 
 	}
 	conn.Close()
