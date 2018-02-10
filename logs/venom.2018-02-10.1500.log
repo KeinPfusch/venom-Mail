@@ -1,7 +1,0 @@
-2018/02/10 15:57:07 pop3_spool.go:17: [LIB][SPOOL][POP3] Spool mailspace created in /home/loweel/Documents/gitio/src/venom-Mail/spool/mail
-2018/02/10 15:57:07 pop3_spool.go:19: [LIB][SPOOL][POP3] Spool test successful: true  
-2018/02/10 15:57:07 pop3_spool.go:20: [LIB][SPOOL][POP3] Spool delete successful: true  
-2018/02/10 15:57:07 smtp_spool.go:20: [LIB][SPOOL][SMTP] Spool queue created in /home/loweel/Documents/gitio/src/venom-Mail/spool/queue
-2018/02/10 15:57:07 smtp_spool.go:22: [LIB][SPOOL][SMTP] Spool test successful: true  
-2018/02/10 15:57:07 smtp_spool.go:23: [LIB][SPOOL][SMTP] Spool delete successful: true  
-2018/02/10 15:57:07 log.go:91: [TOOLS][LOG] LogRotation Init
