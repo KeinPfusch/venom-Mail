@@ -12,7 +12,7 @@ type SmtpMessage string
 
 const (
 	ehloRegexp   = "(?i)^EHLO(.*)"
-	mailToRegexp = "(?i)^MAIL[ ]+FROM:(.*)"
+	mailToRegexp = "(?i)^MAIL[ ]+FROM:(.*)<(.*@.*)>"
 )
 
 func SMTP_Interpret(conn net.Conn) {
@@ -39,14 +39,16 @@ func SMTP_Interpret(conn net.Conn) {
 			conn.Write([]byte("250-Venom Hello" + match[1] + " ,pleased to meet you \r\n"))
 			conn.Write([]byte("250-8BITMIME\r\n"))
 			conn.Write([]byte("250-SIZE 36700160\r\n"))
-			break
+			continue
 		}
 
 		if matches, _ := regexp.MatchString(mailToRegexp, message); matches == true {
 			log.Printf("[INFO] SMTP %s from %s ", message, remote_client)
-			conn.Write([]byte("205 closing connection - goodbye!"))
-			conn.Close()
-			break
+			re, _ := regexp.Compile(ehloRegexp)
+			match := re.FindStringSubmatch(message)
+			log.Printf("[INFO] SMTP from %s ,email: %s ", match[1], match[2])
+			conn.Write([]byte("250 2.0.0: Ok"))
+			continue
 		}
 
 		// TO BE COMPLETED WITH THE SMTP VOCABULARY
