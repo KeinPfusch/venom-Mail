@@ -1,0 +1,3 @@
+2018/02/10 15:13:55 pop3_spool.go:17: [LIB][SPOOL] Spool mailspace created in /home/loweel/Documents/gitio/src/venom-Mail/spool/mail
+2018/02/10 15:13:55 smtp_spool.go:22: [LIB][SPOOL] Spool queue created in /home/loweel/Documents/gitio/src/venom-Mail/spool/queue
+2018/02/10 15:13:55 log.go:91: [TOOLS][LOG] LogRotation Init
