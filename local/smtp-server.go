@@ -6,8 +6,6 @@ import (
 	lib "venom-Mail/lib"
 )
 
-var CapabResponse string = "101 Capability list:\nVERSION 2\nREADER\nPOST\nSTAT\nXOVER\nOVER\nLIST ACTIVE NEWSGROUPS OVERVIEW.FMT\n"
-
 func init() {
 
 	go SMTP_Frontend()
