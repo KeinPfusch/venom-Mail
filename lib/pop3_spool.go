@@ -16,9 +16,8 @@ func init() {
 
 	log.Printf("[LIB][SPOOL][POP3] Spool mailspace created in %s", VenomMail.BasePath)
 	mailWrite(VenomMail, "test1")
-	mailWrite(VenomMail, "test2")
-	log.Printf("[LIB][SPOOL][POP3] Spool test successful: %t  ", len(spoolList(VenomMail)) == 2)
-	VenomMail.EraseAll()
+	log.Printf("[LIB][SPOOL][POP3] Spool test successful: %t  ", mailRead(VenomMail, shasum("test1")) != nil)
+	log.Printf("[LIB][SPOOL][POP3] Spool delete successful: %t  ", VenomMail.Erase(shasum("test1")) == nil)
 
 }
 

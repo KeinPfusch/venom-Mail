@@ -19,9 +19,8 @@ func init() {
 
 	log.Printf("[LIB][SPOOL][SMTP] Spool queue created in %s", VenomQueue.BasePath)
 	spoolWrite(VenomQueue, "test1")
-	spoolWrite(VenomQueue, "test2")
-	log.Printf("[LIB][SPOOL][SMTP] Spool test successful: %t  ", len(spoolList(VenomQueue)) == 2)
-	VenomQueue.EraseAll()
+	log.Printf("[LIB][SPOOL][SMTP] Spool read test successful: %t  ", spoolRead(VenomQueue, shasum("test1")) != nil)
+	log.Printf("[LIB][SPOOL][SMTP] Spool delete successful: %t  ", VenomQueue.Erase(shasum("test1")) == nil)
 
 }
 
@@ -56,7 +55,7 @@ func spoolList(vq *diskv.Diskv) []string {
 
 }
 
-func spoolRead(vq diskv.Diskv, key string) []byte {
+func spoolRead(vq *diskv.Diskv, key string) []byte {
 
 	val, err := vq.Read(key)
 	if err != nil {
