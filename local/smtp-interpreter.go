@@ -10,6 +10,8 @@ import (
 
 type SmtpMessage string
 
+const ehloRegexp = "(?i)^EHLO(.*)"
+
 func SMTP_Interpret(conn net.Conn) {
 
 	remote_client := conn.RemoteAddr()
@@ -24,8 +26,6 @@ func SMTP_Interpret(conn net.Conn) {
 
 		// decides WTF to do with the string
 
-		ehloRegexp := "(?i)^EHLO(.*)"
-
 		if matches, _ := regexp.MatchString(ehloRegexp, message); matches == true {
 
 			re, _ := regexp.Compile(ehloRegexp)
@@ -33,7 +33,7 @@ func SMTP_Interpret(conn net.Conn) {
 
 			log.Printf("[INFO] SMTP %s from %s ", message, remote_client)
 
-			conn.Write([]byte("250-Venom Hello" + match[1] + ",pleased to meet you \r\n"))
+			conn.Write([]byte("250-Venom Hello" + match[1] + " ,pleased to meet you \r\n"))
 			conn.Write([]byte("250-8BITMIME\r\n"))
 			conn.Write([]byte("250-SIZE 36700160\r\n"))
 			break
