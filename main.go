@@ -5,6 +5,7 @@ import (
 	"os"
 
 	lib "venom-Mail/lib"
+	loc "venom-Mail/local"
 	upnp "venom-Mail/upnp"
 
 	"os/signal"
@@ -20,6 +21,7 @@ func init() {
 	lib.LogEngineStart()
 	lib.StartConfig()
 	upnp.UPNP_Engine_Start()
+	loc.SMTP_Engine_Start()
 
 }
 
